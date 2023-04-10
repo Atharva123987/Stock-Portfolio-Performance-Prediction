@@ -4,7 +4,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 
 # Download data for Apple (AAPL) from 2010-01-01 to 2022-04-10
@@ -41,34 +40,23 @@ rf = RandomForestRegressor(n_estimators=100, random_state=42)
 rf.fit(X_train, y_train)
 print(f"Random Forest Regressor R^2: {rf.score(X_test, y_test):.4f}")
 
-# Plot predicted and actual values for linear regression model
-y_pred_lr = lr.predict(X_test)
-plt.plot(y_test.values, label='Actual')
-plt.plot(y_pred_lr, label='Predicted')
-plt.title('Linear Regression Model')
+# Plot the actual and predicted values for the linear regression model
+plt.plot(y_test.values, label="Actual")
+plt.plot(lr.predict(X_test), label="Predicted")
 plt.legend()
+plt.title("Linear Regression")
 plt.show()
 
-# Plot predicted and actual values for decision tree regressor model
-y_pred_dt = dt.predict(X_test)
-plt.plot(y_test.values, label='Actual')
-plt.plot(y_pred_dt, label='Predicted')
-plt.title('Decision Tree Regressor Model')
+# Plot the actual and predicted values for the decision tree regressor model
+plt.plot(y_test.values, label="Actual")
+plt.plot(dt.predict(X_test), label="Predicted")
 plt.legend()
+plt.title("Decision Tree Regressor")
 plt.show()
 
-# Plot predicted and actual values for random forest regressor model
-y_pred_rf = rf.predict(X_test)
-plt.plot(y_test.values, label='Actual')
-plt.plot(y_pred_rf, label='Predicted')
-plt.title('Random Forest Regressor Model')
+# Plot the actual and predicted values for the random forest regressor model
+plt.plot(y_test.values, label="Actual")
+plt.plot(rf.predict(X_test), label="Predicted")
 plt.legend()
+plt.title("Random Forest Regressor")
 plt.show()
-
-# Create a confusion matrix for the random forest regressor model
-y_pred_binary = [1 if pred > 0 else 0 for pred in y_pred_rf] # Convert predicted values to binary 0/1
-y_test_binary = [1 if val > 0 else 0 for val in y_test] # Convert actual values to binary 0/1
-
-
-cm = confusion_matrix(y_test_binary, y_pred_binary)
-print(f"Confusion Matrix:\n{cm}")
